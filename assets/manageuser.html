@@ -1,0 +1,44 @@
+<div class="page" data-page="manageuser">
+  <div class="page-content">
+    <form action="/api/phone/manage" class="ajax-submit-none">
+      <input type="hidden" name="uid"/>
+      <div class="content-block-title">User managment</div>
+      <div class="list-block">
+	<ul>
+          <li>
+            <div class="item-content">
+              <div class="item-media"><i class="icon icon-form-name"></i></div>
+              <div class="item-inner"> 
+                <div class="item-title label">Name</div>
+                <div class="item-input">
+                  <input name="new_name" type="text" placeholder="Contact name">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-media"><i class="icon icon-form-tel"></i></div>
+              <div class="item-inner"> 
+                <div class="item-title label">Phone</div>
+                <div class="item-input">
+                  <input name="new_number" type="tel" placeholder="Phone">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="row">
+          <div class="col-50" id="submit_div">
+            <input type="button" value="Submit" onclick="manage_user(this);" class="button button-big button-fill color-green">
+          </div>
+          <div class="col-50">
+            <input type="button" id="remove_btn" value="Delete" onclick="delete_user(this);" class="button button-big button-fill color-green">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
