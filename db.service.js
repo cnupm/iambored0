@@ -1,3 +1,5 @@
+// Database microservice handler implementation
+////
 "use strict";
 var _ = require('lodash');
 const DbService = require("moleculer-db");
@@ -82,7 +84,7 @@ module.exports = {
 		    if(this.isValid(data.new_name) && this.isValid(data.new_number)){
 			var update = {name: data.new_name, number: data.new_number};
 
-			//update record if we hav UID or just insert new one
+			//update record if we have UID or just insert new one
 			if(this.isValid(data.uid)){
 			    this.adapter.updateById(data.uid, update);
 			} else {
@@ -100,8 +102,10 @@ module.exports = {
 
     //service started - feed DB
     started() {
-	this.adapter.insert({number: '123-4321-1', name: 'Name1'});
-	this.adapter.insert({number: '123-4321-2', name: 'Name2'});	
+
+	for(let i = 0; i < 10; i++){
+	    this.adapter.insert({number: '123-123' + i, name: 'Name ' + i});
+	}
     },
 
     methods: {

@@ -1,3 +1,5 @@
+// Main application node - web-backend & REST microservice <=> DB miroservice handlers
+////
 let {ServiceBroker}  = require("moleculer");
 let ApiService = require("moleculer-web");
 

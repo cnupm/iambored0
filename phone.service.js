@@ -1,3 +1,5 @@
+// REST backend microservice implementation
+////
 "use strict";
 
 module.exports = {
