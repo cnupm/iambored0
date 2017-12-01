@@ -3,14 +3,14 @@
 "use strict";
 var _ = require('lodash');
 const DbService = require("moleculer-db");
+const MongoAdapter = require("moleculer-db-adapter-mongo");
 
 module.exports = {
     name: "db",
     mixins: [DbService],
-    settings: {
-	fields: ["number", "name"]
-    },
-    
+    adapter: new MongoAdapter({uri:"mongodb://localhost/phones"}),
+    collection: "phones",
+
     actions: {
 
 	////
@@ -18,15 +18,14 @@ module.exports = {
 	find: {
 	    responseType: "application/json",
 	    handler(ctx) {
-		var numberVal = ctx.params.query.number;
-		var nameVal = ctx.params.query.name;
-		var getAll = ctx.params.query.getall; //true -> return all records for 'Managment' view
-		var query = {};
+              let q = ctx.params.query;
+	      var query = {};
 
-		//just fetch all records?
-		if(this.isValid(getAll)){
-		    return new this.Promise((resolve,reject) => {
-			this.adapter.find().then(res => {
+	      //just fetch all records?
+	      if(this.isValid(q.getAll)){
+		return new this.Promise((resolve,reject) => {
+
+		  this.adapter.find({}).then(res => {
 			    if(res == null){
 				resolve({context: {error: true, message: "Database empty"}});
 			    } else {
@@ -37,11 +36,11 @@ module.exports = {
 		}
 
 
-		if(this.isValid(numberVal)){
-		    query.number = numberVal;
+		if(this.isValid(q.number)){
+		    query.number = q.number;
 		}
-		if(this.isValid(nameVal)){
-		    query.name = nameVal;
+		if(this.isValid(q.name)){
+		    query.name = q.name;
 		}
 	
 		return new this.Promise((resolve,reject) => {
@@ -97,14 +96,6 @@ module.exports = {
 		    }
 		});
 	    }
-	}
-    },
-
-    //service started - feed DB
-    started() {
-
-	for(let i = 0; i < 10; i++){
-	    this.adapter.insert({number: '123-123' + i, name: 'Name ' + i});
 	}
     },
 
